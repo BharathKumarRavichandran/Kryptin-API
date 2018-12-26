@@ -1,73 +1,43 @@
 [{
 		"model": "api.User",
-		"pk": 1,
 		"fields": {
-			"user_id": 1,
 			"username": "Bharath Kumar R",
-			"token": "e657a1b117db5e9bd1863bb4eea09160cfb46e251655d4933eed4ac7d8d36",
-			"platform": "Coursera",
-			"course": "machine-learning",
-			"status": 1
+			"token": "e657a1b117db5e9bd1863bb4eea09160cfb46e251655d4933eed4ac7d8d36"
 		}
 	},
 	{
 		"model": "api.User",
-		"pk": 2,
 		"fields": {
-			"user_id": 2,
 			"username": "John",
-			"token": "f768a1b117db5e9bd1863bb4eea09160cfb46e251655d4944eed4ae2d8d40",
-			"platform": "Coursera",
-			"course": "machine-learning",
-			"status": 1
+			"token": "f768a1b117db5e9bd1863bb4eea09160cfb46e251655d4944eed4ae2d8d40"
 		}
 	},
 	{
 		"model": "api.User",
-		"pk": 3,
 		"fields": {
-			"user_id": 3,
 			"username": "Foobar",
-			"token": "f768a1b117db5e9bd1863bb4eea09160cfb46e251655d4944eed4ae2d8d40",
-			"platform": "Coursera",
-			"course": "machine-learning",
-			"status": 0
+			"token": "f768a1b117db5e9bd1863bb4eea09160cfb46e251655d4944eed4ae2d8d40"
 		}
 	},
 	{
 		"model": "api.User",
-		"pk": 4,
 		"fields": {
-			"user_id": 4,
 			"username": "Nandha",
-			"token": "f768a1b117db5e9bd1863bb4eeasdfsdfsdfvss251655d4944eed4e2d8d40",
-			"platform": "Udemy",
-			"course": "getting-started-in-photoshop",
-			"status": 1
+			"token": "f768a1b117db5e9bd1863bb4eeasdfsdfsdfvss251655d4944eed4e2d8d40"
 		}
 	},
 	{
 		"model": "api.User",
-		"pk": 5,
 		"fields": {
-			"user_id": 5,
 			"username": "Preetham",
-			"token": "w879b1b123db5e9bd1863bb4feb03160cfb46324j324ujbb234b324b324b3",
-			"platform": "Udemy",
-			"course": "getting-started-in-photoshop",
-			"status": 0
+			"token": "w879b1b123db5e9bd1863bb4feb03160cfb46324j324ujbb234b324b324b3"
 		}
 	},
 	{
 		"model": "api.User",
-		"pk": 6,
 		"fields": {
-			"user_id": 6,
 			"username": "Joel",
-			"token": "cas768a1b11vfs342b23h34g3423sc34jb325vds7wsdav3ey3e4q3scsc3r0",
-			"platform": "Udacity",
-			"course": "ud851",
-			"status": 1
+			"token": "cas768a1b11vfs342b23h34g3423sc34jb325vds7wsdav3ey3e4q3scsc3r0"
 		}
 	}
 ]
