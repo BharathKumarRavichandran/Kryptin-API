@@ -12,7 +12,7 @@ class GetOnlineView(View):
     def post(self, request):
         
         try:
-            username = request.POST.get('username')
+            token    = request.POST.get('token')
             platform = request.POST.get('platform')
             course   = request.POST.get('course')
 
@@ -22,7 +22,7 @@ class GetOnlineView(View):
         status       = True
         online_users = []
 
-        users = User.objects.filter(platform=platform, course=course, status=status).exclude(username=username)
+        users = User.objects.filter(platform=platform, course=course, status=status).exclude(token=token)
 
         for user in users:
             online_users.append({
@@ -48,10 +48,9 @@ class PutOnlineView(View):
         except KeyError:
             return invalid_params_response("Invalid parameters")
 
-        user = User.objects.get(username=username, platform=platform, course=course)
+        user = User.objects.get(token=token, platform=platform, course=course)
 
         if(user.user_id):
-            user.token  = token
             user.status = True
             user.save()
             return "User status made online"
