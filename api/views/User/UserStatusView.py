@@ -48,14 +48,16 @@ class PutOnlineView(View):
         except KeyError:
             return invalid_params_response("Invalid parameters")
 
-        user = User.objects.get(token=token, platform=platform, course=course)
+        try:
+            user = User.objects.get(token=token, platform=platform, course=course)
 
-        if(user.user_id):
-            user.status = True
-            user.save()
-            return "User status made online"
-
-        else:
+        except User.DoesNotExist:
             status = True
             user = User.objects.create(username=username, token=token, platform=platform, course=course, status=status)
             return "User created and status made online"
+
+        if user is not None:
+            user.status = True
+            user.save()
+            return "User status made online"
+            
