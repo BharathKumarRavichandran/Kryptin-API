@@ -26,6 +26,10 @@
         ```
         pip3 install mysqlclient
         ```
+    * Install [redis](https://redis.io/) :
+        ```
+        sudo apt-get install redis-server
+        ```
 
 ### Project Installation
 
