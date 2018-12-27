@@ -26,12 +26,9 @@ SECRET_KEY = 'jv3ioeri12lq7bth2mmeqm1f(&+pmlsmk2c7dh9+ex=pk*e@v7'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'http://localhost:8000',
-    'https://localhost:8000',
-    'http://127.0.0.1:8000',
-    'https://127.0.0.1:8000',
-    'http://kryptin-api.herokuapp.com',
-    'https://kryptin-api.herokuapp.com'
+    'localhost',
+    '127.0.0.1',
+    'kryptin-api.herokuapp.com'
 ]
 
 # CORS rules
