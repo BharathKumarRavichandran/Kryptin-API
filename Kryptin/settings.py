@@ -37,6 +37,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'channels',
+    'django_extensions',
     'api.apps.ApiConfig',
 ]
 
@@ -60,8 +62,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Kryptin.urls'
-
-ASGI_APPLICATION = "Kryptin.routing.application"
 
 TEMPLATES = [
     {
@@ -79,8 +79,19 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "Kryptin.routing.application"
+
 WSGI_APPLICATION = 'Kryptin.wsgi.application'
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            #"hosts": [("localhost", 6379)],
+            "hosts": [(os.environ.get('REDIS_HOST', 'localhost'),6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
