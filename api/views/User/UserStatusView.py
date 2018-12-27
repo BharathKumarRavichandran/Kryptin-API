@@ -54,7 +54,6 @@ class PutOnlineView(View):
 
         try:
             user = User.objects.get(username=username, token=token)
-            print(user)
 
         except User.DoesNotExist:
             user = User.objects.create(username=username, token=token)
@@ -97,7 +96,6 @@ class PutOfflineView(View):
         
         try:
             user = User.objects.get(username=username, token=token)
-            print(user)
 
         except User.DoesNotExist:
             user = User.objects.create(username=username, token=token)
