@@ -4,6 +4,8 @@ from django.views.generic import RedirectView
 from django.shortcuts import redirect
 from api.views.User import UserStatusView
 
+app_name = 'api'
+
 urlpatterns = [
 
     url('user/online/get/', UserStatusView.GetOnlineView.as_view(), name='get-online'),
