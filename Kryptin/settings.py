@@ -29,9 +29,7 @@ ALLOWED_HOSTS = []
 
 # CORS rules
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-    'localhost:9000'
-)
+CORS_ORIGIN_WHITELIST = ()
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
@@ -44,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'channels',
     'api.apps.ApiConfig',
 ]
 
@@ -59,6 +58,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Kryptin.urls'
+
+ASGI_APPLICATION = "Kryptin.routing.application"
 
 TEMPLATES = [
     {
