@@ -26,7 +26,12 @@ SECRET_KEY = 'jv3ioeri12lq7bth2mmeqm1f(&+pmlsmk2c7dh9+ex=pk*e@v7'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost'
+    'http://localhost:8000',
+    'https://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://127.0.0.1:8000',
+    'http://kryptin-api.herokuapp.com',
+    'https://kryptin-api.herokuapp.com'
 ]
 
 # CORS rules
@@ -59,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Kryptin.urls'
@@ -144,4 +150,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
