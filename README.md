@@ -2,10 +2,7 @@
 
 ### Prerequisites
 * Install Python
-* Install Python Package Manager (pip/pip3) :
-    ```
-    apt-get install python-pip
-    ```
+* Install Python Package Manager (pip3) :
     ```
     apt-get install python3-pip
     ```
@@ -49,7 +46,7 @@
 9. Start server - `python3 manage.py runserver`
 
 #### Note
+* This application runs only on python3.
 * Everytime you install packages or run the server, activate your virtual environment - `source venv/bin/activate`
 * To deactivate the activated virtual environment - run the command `deactivate` in terminal.
-* If you ran into any errors while running the server with python version incompatabilities, try `python3` instead of `python` while running the server.
 * If you install any python packages, please update the file `requirements.txt`
