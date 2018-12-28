@@ -11,7 +11,7 @@ class ChatConsumer(AsyncConsumer):
     
     async def websocket_connect(self, event):
 
-        print("Connected", event)
+        print("Websocket connected :", event)
 
         await self.send({
             "type": "websocket.accept"
@@ -19,28 +19,43 @@ class ChatConsumer(AsyncConsumer):
 
         await self.send({
             "type": "websocket.send",
-            "text": "Hello world"
+            "data": "Websocket connected"
         })
+
 
     async def websocket_receive(self, event):
 
-        print("Receive", event)
-        
-        dict_data = ''
-        message   = ''
-        data = event.get('text', None)
-        
-        if data is not None:
-            dict_data = json.loads(data)
-            message   = dict_data.get('message')
-            print(message)
+        print("Websocket received data :", event)
+
+        from_username = ''
+        to_username   = ''
+        message       = ''
+        text          = event.get('text', None)
+        data          = json.loads(text).get('data')
+         
+        if data is not None :
+
+            from_username = data['fromUsername']
+            to_username   = data['toUsername']
+            message       = data['message']
+
+            send_data = ({
+                "from_username" : from_username,
+                "to_username"   : to_username,
+                "message"       : message
+            })
+
+            await self.send({
+                "type" : "websocket.send",
+                "data" : json.dumps(send_data)
+            })
 
 
     async def websocket_disconnect(self, event):
 
-        print("Disconnect", event)
+        print("Websocket disconnected :", event)
 
         await self.send({
             "type": "websocket.send",
-            "text": "Hello world"
+            "data": "Websocket disconnected!"
         })
