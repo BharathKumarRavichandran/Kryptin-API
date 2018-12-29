@@ -12,6 +12,7 @@ class GetOnlineView(View):
     def post(self, request):
         
         try:
+            username   = request.POST.get('username')
             token      = request.POST.get('token')
             platform   = request.POST.get('platform')
             coursename = request.POST.get('coursename')
@@ -22,11 +23,11 @@ class GetOnlineView(View):
         status       = True
         online_users = []
 
-        users = Course.objects.values('token__username', 'platform','coursename').filter(platform=platform, coursename=coursename, status=status).exclude(token=token)
+        users = Course.objects.values('username__username', 'platform','coursename').filter(platform=platform, coursename=coursename, status=status).exclude(username=username)
 
         for user in users:
             online_users.append({
-                'username'   : user['token__username'],
+                'username'   : user['username__username'],
                 'platform'   : user['platform'],
                 'coursename' : user['coursename']
             })
@@ -60,12 +61,12 @@ class PutOnlineView(View):
             print("User created")
 
         try:
-            course = Course.objects.get(token=user, platform=platform, coursename=coursename)
+            course = Course.objects.get(username=user, platform=platform, coursename=coursename)
 
         except Course.DoesNotExist:
 
             if user is not None:
-                course = Course.objects.create(token=user, platform=platform, coursename=coursename, status=status)
+                course = Course.objects.create(username=user, platform=platform, coursename=coursename, status=status)
                 print("User course created and status made online")
                 return "User course created and status made online"           
 
@@ -102,12 +103,12 @@ class PutOfflineView(View):
             print("User created")
 
         try:
-            course = Course.objects.get(token=user, platform=platform, coursename=coursename)
+            course = Course.objects.get(username=user, platform=platform, coursename=coursename)
 
         except Course.DoesNotExist:
 
             if user is not None:
-                course = Course.objects.create(token=user, platform=platform, coursename=coursename, status=status)
+                course = Course.objects.create(username=user, platform=platform, coursename=coursename, status=status)
                 print("User course created and status made offline")
                 return "User course created and status made offline"            
 
@@ -116,3 +117,26 @@ class PutOfflineView(View):
             course.save()
             print("User status made offline")
             return "User status made offline"
+
+@method_decorator(JsonResponseDecorator, name='dispatch')
+class UsernameAvailabilityView(View):
+
+    def post(self, request):
+
+        try:
+            username   = request.POST.get('username')
+
+        except KeyError:
+            return invalid_params_response("Invalid parameters")
+
+        try:
+            user = User.objects.get(username=username)
+            print("gsdff")
+            print(user)
+
+        except User.DoesNotExist:
+            print("Username available")
+            return "available"
+
+        print("Username unavailable")
+        return "unavailable"

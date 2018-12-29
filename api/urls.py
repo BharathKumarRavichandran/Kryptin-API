@@ -8,6 +8,8 @@ app_name = 'api'
 
 urlpatterns = [
 
+    url('user/usernameavailability/', UserStatusView.UsernameAvailabilityView.as_view(), name='username-availability'),
+
     url('user/online/get/', UserStatusView.GetOnlineView.as_view(), name='get-online'),
     url('user/online/put/', UserStatusView.PutOnlineView.as_view(), name='put-online'),
 
