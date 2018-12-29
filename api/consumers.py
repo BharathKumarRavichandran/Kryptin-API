@@ -2,10 +2,12 @@ import asyncio
 import json
 
 from django.contrib.auth import get_user_model
+
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 
-from .models import *
+from .models import User, Message
+
 
 class ChatConsumer(AsyncConsumer):
     
@@ -45,6 +47,16 @@ class ChatConsumer(AsyncConsumer):
                 "message"       : message
             })
 
+            try:
+                from_user = User.objects.get(username=from_username)
+                to_user   = User.objects.get(username=to_username)
+
+            except User.DoesNotExist:
+                print("User does not exist")
+                return "User does not exist"
+
+            user_message = Message.objects.create(from_user=from_user, to_user=to_user, message=message)
+
             await self.send({
                 "type" : "websocket.send",
                 "data" : json.dumps(send_data)
@@ -59,3 +71,7 @@ class ChatConsumer(AsyncConsumer):
             "type": "websocket.send",
             "data": "Websocket disconnected!"
         })
+
+        await self.send({
+            "type": "websocket.close"
+            })
