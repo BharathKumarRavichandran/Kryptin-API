@@ -131,8 +131,6 @@ class UsernameAvailabilityView(View):
 
         try:
             user = User.objects.get(username=username)
-            print("gsdff")
-            print(user)
 
         except User.DoesNotExist:
             print("Username available")
