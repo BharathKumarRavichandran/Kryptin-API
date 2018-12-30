@@ -29,6 +29,6 @@ class RetrieveChatMessageView(View):
             print("Authentication failed/User does not exist")
             return "Authentication failed/User does not exist"
 
-        messages = list(Message.objects.values('from_user', 'to_user', 'message').filter(Q(from_user=from_user) | Q(to_user=from_user) | Q(from_user=to_user) | Q(to_user=to_user)).order_by('created_at'))
+        messages = list(Message.objects.values('from_user', 'to_user', 'message').filter( (Q(from_user=from_user) & Q(to_user=to_user)) | (Q(from_user=to_user) & Q(to_user=from_user)) ).order_by('created_at'))
 
         return messages
