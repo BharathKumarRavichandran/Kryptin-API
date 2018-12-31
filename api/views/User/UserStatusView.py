@@ -104,25 +104,3 @@ class PutOfflineView(View):
             course.save()
             print("User status made offline")
             return "User status made offline"
-            
-
-@method_decorator(JsonResponseDecorator, name='dispatch')
-class UsernameAvailabilityView(View):
-
-    def post(self, request):
-
-        try:
-            username   = request.POST.get('username')
-
-        except KeyError:
-            return invalid_params_response("Invalid parameters")
-
-        try:
-            user = User.objects.get(username=username)
-
-        except User.DoesNotExist:
-            print("Username available")
-            return "available"
-
-        print("Username unavailable")
-        return "unavailable"

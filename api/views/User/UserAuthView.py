@@ -3,12 +3,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.utils.decorators import method_decorator
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
 
 from api.helpers.response_helpers import error_response, unauthorized_response
 from api.helpers.user_helpers import *
 from api.models import User
+from api.decorators.requires_login import RequiresLoginDecorator
 from api.decorators.response import JsonResponseDecorator
 
 
@@ -20,7 +21,7 @@ class LoginFormView(View):
         Authenticates and log in a valid user
         Disconnect with all the previous sessions of the user
         """
-        user = authenticate(username=request.POST.get('email'), password=request.POST.get('passToken'))
+        user = authenticate(username=request.POST.get('email'), password=request.POST.get('password'))
         
         if user is not None:
             remove_existing_sessions(user.user_id)
@@ -80,3 +81,37 @@ class LogoutView(View):
             return "Logged out successfully!"
         else:
             return error_response("Logout Error!")
+
+
+@method_decorator(JsonResponseDecorator, name='dispatch')
+class UsernameAvailabilityView(View):
+
+    def post(self, request):
+
+        try:
+            username   = request.POST.get('username')
+
+        except KeyError:
+            return invalid_params_response("Invalid parameters")
+
+        try:
+            user = User.objects.get(username=username)
+
+        except User.DoesNotExist:
+            print("Username available")
+            return "available"
+
+        print("Username unavailable")
+        return "unavailable"
+
+
+@method_decorator(RequiresLoginDecorator, name='dispatch')
+@method_decorator(JsonResponseDecorator, name='dispatch')
+class getUsernameView(View):
+
+    def post(self, request):
+
+        user_id = request.session.get('user_id')
+        user    = User.objects.get(pk=user_id)
+
+        return user['username']

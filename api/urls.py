@@ -13,7 +13,9 @@ urlpatterns = [
     url('user/register/', UserAuthView.RegisterFormView.as_view(), name='user-register'),
     url('user/logout/', UserAuthView.LogoutView.as_view(), name='user-logout'),
 
-    url('user/usernameavailability/', UserStatusView.UsernameAvailabilityView.as_view(), name='username-availability'),
+    url('user/usernameavailability/', UserAuthView.UsernameAvailabilityView.as_view(), name='username-availability'),
+
+    url('user/getusername/', UserAuthView.getUsernameView.as_view(), name='get-username'),
 
     url('user/online/get/', UserStatusView.GetOnlineView.as_view(), name='get-online'),
     url('user/online/put/', UserStatusView.PutOnlineView.as_view(), name='put-online'),
