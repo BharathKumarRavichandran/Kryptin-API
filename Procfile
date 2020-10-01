@@ -1,0 +1,1 @@
+web: gunicorn Kryptin.wsgi --log-file -
