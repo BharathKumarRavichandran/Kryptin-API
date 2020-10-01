@@ -2,10 +2,7 @@
 
 ### Prerequisites
 * Install Python
-* Install Python Package Manager (pip/pip3) :
-    ```
-    apt-get install python-pip
-    ```
+* Install Python Package Manager (pip3) :
     ```
     apt-get install python3-pip
     ```
@@ -14,7 +11,7 @@
     apt-get install virtualenv
     ```
 * Install [`mysqlclient`](https://pypi.org/project/mysqlclient/) prerequisites :
-    * You may need to install the Python and MySQL development headers and libraries like so:
+    * You may need to install the Python and MySQL development headers and libraries like so :
         ```
         sudo apt-get install python-dev default-libmysqlclient-dev
         ```
@@ -22,7 +19,7 @@
         ```
         sudo apt-get install python3-dev
         ```
-    * Install from PyPI:
+    * Install from PyPI :
         ```
         pip3 install mysqlclient
         ```
@@ -46,10 +43,18 @@
     * Set `database = 'kryptin_api'`
 7. Run migrations - `python3 manage.py migrate`
 8. Run seeders - `python3 manage.py loaddata */fixtures/*.json`
-9. Start server - `python3 manage.py runserver`
+9. Start server :
+    * For non-secure server(`http://`) - `python3 manage.py runserver`
+    * For secure server(`https://`) - `python3 manage.py runsslserver`
+10. Start websocket protocol server(`wss://`) : 
+    ```
+    daphne -e ssl:8001:privateKey=pyOpenSSL.key:certKey=pyOpenSSL.crt Kryptin.asgi:application
+    ```
+
 
 #### Note
+* This application runs only on python3.
 * Everytime you install packages or run the server, activate your virtual environment - `source venv/bin/activate`
 * To deactivate the activated virtual environment - run the command `deactivate` in terminal.
-* If you ran into any errors while running the server with python version incompatabilities, try `python3` instead of `python` while running the server.
 * If you install any python packages, please update the file `requirements.txt`
+* Enable `Allow invalid certificates for resources loaded from localhost` in `chrome://flags/` if you face any invalid licensing issues.
